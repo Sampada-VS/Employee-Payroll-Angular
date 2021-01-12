@@ -1,0 +1,137 @@
+<div>
+    <app-header></app-header>
+
+    <div class="form-content">
+      <form [formGroup]="employeeForm" class="form" action="#" (submit)="save($event)">
+        <div class="form-head">
+          Employee Payroll Form
+        </div>
+        <div class="row-content">
+          <label class="label text" for="name">Name</label>
+          <input class="input" type="text" id="name" name="name" formControlName="name"
+                  placeholder="Your name.." required>
+            <span class="error-output" *ngIf="employeeForm.controls['name'].invalid && employeeForm.controls['name'].touched">
+              <span *ngIf="employeeForm.controls['name'].errors.required">
+                Name is required.
+              </span>
+              <span *ngIf="employeeForm.controls['name'].errors.pattern">
+                Name should start with capital letter and min length is 3.
+              </span>
+            </span>
+        </div>
+        <div class="row-content">
+          <label class="label text" for ="profile">Profile image</label>
+          <div class="profile-radio-content">
+            <label *ngFor='let profile of profileArray'>
+              <input type="radio" id="profileImg" name="profileImg" formControlName="profileImg" [value]="profile.url" required>
+              <img class="profile" [src]="profile.url" alt="profile">
+            </label>
+          </div>
+        </div>
+        <div class="row-content">
+          <label class="label text" for="gender">Gender</label>
+          <div>
+            <input type="radio" id="male" name="gender" formControlName="gender" value="Male" required>
+            <label class="text" for="male">Male</label>
+            <input type="radio" id="female" name="gender" formControlName="gender" value="Female" required>
+            <label class="text" for="female">Female</label>
+          </div>
+        </div>
+        <span class="error-output" *ngIf="employeeForm.controls['gender'].invalid && employeeForm.controls['gender'].touched">
+          <span *ngIf="employeeForm.controls['gender'].errors.required">
+            Gender is required.
+          </span>
+        </span>
+        <div class="row-content">
+          <label class="label text" for="department">Department</label>
+            <span *ngFor="let item of allDepartment;let i=index">
+              <input type="checkbox" [name]="item" [value]="item.value"
+                     (change)="onCheckChange($event)">
+              <label class="text" [for]="item">{{item.name}}</label>
+            </span>
+              <span class="error-output" *ngIf="this.employeeForm.controls['department'].errors?.required">
+                Department is required.
+              </span>
+        </div>
+        
+        <div class="row-content">
+          <label class="label text" for="salary">Salary</label>
+          <input class="input" type="range" id="salary" name="salary" formControlName="salary"
+              min="300000" max="500000" step="10000" [value]="400000" (change)="salaryChange()" required>
+          <output class="salary-output text" for="salary">{{this.salary}}</output>
+        </div>
+        <div class="row-content">
+          <label class="label text" for="startDate">Start Date</label>
+          <div id="startDate">            
+            <select formControlName="day" id="day" name="Day" required>
+              <option value="01">1</option>
+              <option value="02">2</option>
+              <option value="03">3</option>
+              <option value="04">4</option>
+              <option value="05">5</option>
+              <option value="06">6</option>
+              <option value="07">7</option>
+              <option value="08">8</option>
+              <option value="09">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+              <option value="29">29</option>
+              <option value="30">30</option>
+              <option value="31">31</option>
+            </select>
+            <select formControlName="month" id="month" name="Month" required>
+              <option value="Jan">January</option>
+              <option value="Feb">February</option>
+              <option value="Mar">March</option>
+              <option value="Apr">April</option>
+              <option value="May">May</option>
+              <option value="Jun">June</option>
+              <option value="Jul">July</option>
+              <option value="Aug">August</option>
+              <option value="Sep">September</option>
+              <option value="Oct">October</option>
+              <option value="Nov">November</option>
+              <option value="Dec">December</option>
+            </select>
+            <select formControlName="year" id="year" name="Year" required>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+              <option value="2019">2019</option>
+              <option value="2018">2018</option>
+              <option value="2017">2017</option>
+              <option value="2016">2016</option>
+            </select>
+          </div>   
+        </div>
+        <div class="row-content">
+          <label class="label text" for="notes">Notes</label>
+          <textarea id="notes" class="input" name="notes" formControlName="notes" placeholder="Additional details.."
+                    style="height: 100px;"></textarea>
+        </div>
+        <div class="button-content">
+          <a routerLink="" class="resetButton button cancelButton">Cancel</a>
+          <div class="submit-reset">
+            <button type="submit" class="button submitButton" id="submitButton">{{isUpdate ?'Update':'Submit'}}</button>
+            <button type="reset" class="button resetButton">Reset</button>
+          </div>
+        </div>
+      </form>
+    </div>
+</div>
